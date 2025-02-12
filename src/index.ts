@@ -5,10 +5,14 @@ import cookieParser from 'cookie-parser'
 import compression from 'compression'
 import cors from 'cors'
 import mongoose from 'mongoose'
-
+import scriptRoutes from './routes/script.routes'
+import dotenv from 'dotenv'
 import router from './routes/index.routes'
 
+dotenv.config()
 const app = express()
+
+app.use(express.json())
 
 app.use(cors({
     credentials: true
@@ -30,4 +34,4 @@ mongoose.Promise = Promise
 mongoose.connect(MONGO_URL)
 mongoose.connection.on('error', (error: Error) => console.log(error))
 
-app.use('/', router())
+app.use('/', scriptRoutes)
